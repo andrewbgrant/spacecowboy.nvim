@@ -5,13 +5,13 @@ local colors = require("spacecowboy.colors")
 
 local M = {}
 
-function M.setup()
-	local theme = { colors = colors.setup() }
+function M.setup(variant)
+	local theme = { colors = colors.setup(variant) }
 	local c = theme.colors
 
 	theme.highlights = {
 		-- UI Elements
-		Comment = { fg = c.warm_grey, italic = true },
+		Comment = { fg = c.grey, italic = true },
 		ColorColumn = { bg = c.black },
 		Conceal = { fg = c.grey },
 		Cursor = { fg = c.black, bg = c.muted_orange },
@@ -21,7 +21,7 @@ function M.setup()
 		CursorLine = { bg = c.black },
 		Directory = { fg = c.steel_blue },
 		EndOfBuffer = { fg = c.bg },
-		ErrorMsg = { fg = c.rust, bold = true },
+		ErrorMsg = { fg = c.red, bold = true },
 		VertSplit = { fg = c.black },
 		Terminal = { bg = c.bg, fg = c.sand },
 		WinSeparator = { fg = c.black, bold = false },
@@ -63,8 +63,8 @@ function M.setup()
 		TabLineFill = { bg = c.black },
 		TabLineSel = { fg = c.muted_orange, bg = c.black, bold = true },
 		Title = { fg = c.steel_blue, bold = true },
-		Visual = { bg = c.dark_grey },
-		VisualNOS = { bg = c.dark_grey },
+		Visual = { bg = c.grey },
+		VisualNOS = { bg = c.grey },
 		WarningMsg = { fg = c.muted_orange, bold = true },
 		Whitespace = { fg = c.grey },
 		WildMenu = { bg = c.black, fg = c.muted_orange },
@@ -86,35 +86,48 @@ function M.setup()
 		Repeat = { fg = c.olive },
 		Label = { fg = c.muted_orange },
 		Exception = { fg = c.red },
-		Operator = { fg = c.steel_grey },
+		Operator = { fg = c.grey },
 		PreProc = { fg = c.lavender },
 		Include = { fg = c.industrial_cyan },
 		Define = { fg = c.industrial_cyan },
 		Macro = { fg = c.industrial_cyan },
 		PreCondit = { fg = c.industrial_cyan },
 		Module = { fg = c.industrial_cyan },
-		Type = { fg = c.mauve },
+		Type = { fg = c.class_teal },
 		["@type"] = { link = "Type" },
-		["@type.class"] = { fg = c.class_teal }, -- Class names
-		["@constructor"] = { fg = c.class_teal }, -- Constructor calls
+		["@type.class"] = { fg = c.class_teal },
+		["@constructor"] = { fg = c.class_teal },
 		Variable = { fg = c.white },
 		["@variable"] = { fg = c.white },
-		["@property"] = { fg = c.muted_orange }, -- Props like className, color, etc.
-		["@attribute"] = { fg = c.muted_orange }, -- For HTML-like attributes
-		["@component"] = { fg = c.class_teal }, -- React components
+		["@variable.parameter"] = { fg = c.desaturated_gold },
+		["@variable.member"] = { fg = c.steel_blue },
+		["@parameter"] = { fg = c.desaturated_gold },
+		["@property"] = { fg = c.muted_orange },
+		["@attribute"] = { fg = c.muted_orange },
+		["@component"] = { fg = c.class_teal },
+		["@namespace"] = { fg = c.industrial_cyan },
+		["@module"] = { fg = c.steel_blue },
 		StorageClass = { fg = c.steel_blue },
-		Structure = { fg = c.mauve },
-		Special = { fg = c.rust },
-		SpecialChar = { fg = c.rust },
+		Structure = { fg = c.lavender },
+		Special = { fg = c.sand },
+		SpecialChar = { fg = c.sand },
 		Tag = { fg = c.coral },
 		["@tag.tsx"] = { fg = c.coral },
 		["@_jsx_element.tsx"] = { fg = c.coral },
 		["@_jsx_attribute.tsx"] = { fg = c.red },
-		Delimiter = { fg = c.steel_grey },
-		Debug = { fg = c.rust, bold = true },
+		Delimiter = { fg = c.grey },
+		Debug = { fg = c.red, bold = true },
 		Underlined = { underline = true },
 		Bold = { bold = true },
 		Italic = { italic = true },
+
+		["@string.documentation"] = { fg = c.olive, italic = true },
+		["@comment.documentation"] = { fg = c.olive },
+		["@keyword.return"] = { fg = c.coral },
+		["@keyword.operator"] = { fg = c.lavender },
+		["@function.builtin"] = { fg = c.steel_blue },
+		["@constant.macro"] = { fg = c.noir_purple },
+		["@function.macro"] = { fg = c.noir_purple },
 
 		-- LSP
 		LspReferenceText = { bg = c.black },
@@ -127,7 +140,7 @@ function M.setup()
 
 		-- Debugging
 		debugPC = { bg = c.grey },
-		debugBreakpoint = { bg = c.rust, fg = c.sand, bold = true },
+		debugBreakpoint = { bg = c.red, fg = c.sand, bold = true },
 
 		-- Diff
 		DiffAdd = { bg = c.diff.add_bg, fg = c.grey },
@@ -156,102 +169,135 @@ function M.setup()
 		qfFileName = { fg = c.steel_blue },
 
 		-- Health
-		healthError = { fg = c.rust, bold = true },
-		healthSuccess = { fg = c.forest_green, bold = true },
+		healthError = { fg = c.red, bold = true },
+		healthSuccess = { fg = c.sage_green, bold = true },
 		healthWarning = { fg = c.muted_orange, bold = true },
 
 		-- Flash/Notify/Plugins
 		FlashBackdrop = { fg = c.sand, bg = c.bg },
-		FlashLabel = { bg = c.rust, bold = true, fg = c.black },
+		FlashLabel = { bg = c.red, bold = true, fg = c.black },
 		NotifyBackground = { bg = c.bg },
-		NotifyERRORBorder = { fg = c.rust },
+		NotifyERRORBorder = { fg = c.red },
 		NotifyWARNBorder = { fg = c.muted_orange },
 		NotifyINFOBorder = { fg = c.desaturated_gold },
 		NotifyDEBUGBorder = { fg = c.grey },
 		NotifyTRACEBorder = { fg = c.grey },
-		NotifyERRORTitle = { fg = c.rust, bold = true },
+		NotifyERRORTitle = { fg = c.red, bold = true },
 		NotifyWARNTitle = { fg = c.muted_orange, bold = true },
 		NotifyINFOTitle = { fg = c.desaturated_gold, bold = true },
 		NotifyDEBUGTitle = { fg = c.grey, bold = true },
 		NotifyTRACETitle = { fg = c.grey, bold = true },
 
 		-- Diagnostics
-		Error = { fg = c.rust },
+		Error = { fg = c.red },
 		Todo = { bg = c.muted_orange, fg = c.black, bold = true },
-		DiagnosticError = { fg = c.rust },
+		DiagnosticError = { fg = c.red },
 		DiagnosticWarn = { fg = c.muted_orange },
 		DiagnosticInfo = { fg = c.desaturated_gold },
-		DiagnosticHint = { fg = c.forest_green },
+		DiagnosticHint = { fg = c.sage_green },
 		DiagnosticUnnecessary = { fg = c.grey, italic = true },
-		DiagnosticVirtualTextError = { bg = c.diagnostic.bg_error, fg = c.rust },
+		DiagnosticVirtualTextError = { bg = c.diagnostic.bg_error, fg = c.red },
 		DiagnosticVirtualTextWarn = { bg = c.diagnostic.bg_warn, fg = c.muted_orange },
 		DiagnosticVirtualTextInfo = { bg = c.diagnostic.bg_info, fg = c.desaturated_gold },
-		DiagnosticVirtualTextHint = { bg = c.diagnostic.bg_hint, fg = c.forest_green },
-		DiagnosticUnderlineError = { undercurl = true, sp = c.rust },
+		DiagnosticVirtualTextHint = { bg = c.diagnostic.bg_hint, fg = c.sage_green },
+		DiagnosticUnderlineError = { undercurl = true, sp = c.red },
 		DiagnosticUnderlineWarn = { undercurl = true, sp = c.muted_orange },
 		DiagnosticUnderlineInfo = { undercurl = true, sp = c.desaturated_gold },
-		DiagnosticUnderlineHint = { undercurl = true, sp = c.forest_green },
+		DiagnosticUnderlineHint = { undercurl = true, sp = c.sage_green },
 
 		SnacksPickerFile = { fg = c.white },
 		SnacksPickerDir = { fg = c.grey },
 
-		-- Python-specific enhancements
-		["@variable.builtin.python"] = { fg = c.chrome, italic = true }, -- self, cls, __name__, etc.
-		["@function.method.python"] = { fg = c.steel_blue }, -- Method calls (foo() in self.foo())
-		["@property.python"] = { fg = c.muted_orange }, -- Properties (data in self.data)
-		["@decorator.python"] = { fg = c.noir_purple, bold = true }, -- @property, @staticmethod, etc.
-		["@type.class.python"] = { fg = c.class_teal, bold = true }, -- Class names like RateLimitExceeded
-		["@constructor.python"] = { fg = c.class_teal }, -- Class constructor calls
-		["@string.interpolation.python"] = { fg = c.desaturated_gold }, -- f"string {var}" variables
-		["@punctuation.special.python"] = { fg = c.steel_grey }, -- f-string braces {}
-		["@constant.builtin.python"] = { fg = c.desaturated_gold, italic = true }, -- True, False, None
-		["@type.builtin.python"] = { fg = c.mauve }, -- int, str, list, dict
-		["@keyword.function.python"] = { fg = c.lavender }, -- def, lambda
-		["@keyword.conditional.python"] = { fg = c.olive }, -- if, elif, else
-		["@keyword.repeat.python"] = { fg = c.olive }, -- for, while
-		["@keyword.exception.python"] = { fg = c.red }, -- try, except, finally, raise
-		["@keyword.import.python"] = { fg = c.industrial_cyan }, -- import, from, as
-
-		-- TypeScript/JavaScript-specific enhancements
-		["@variable.builtin.javascript"] = { fg = c.chrome, italic = true }, -- this, arguments
-		["@variable.builtin.typescript"] = { fg = c.chrome, italic = true }, -- this, arguments
-		["@type.class.javascript"] = { fg = c.class_teal, bold = true }, -- Class names
-		["@type.class.typescript"] = { fg = c.class_teal, bold = true }, -- Class names
-		["@constructor.javascript"] = { fg = c.class_teal }, -- Constructor calls
-		["@constructor.typescript"] = { fg = c.class_teal }, -- Constructor calls
-		["@function.method.javascript"] = { fg = c.steel_blue }, -- Method calls
-		["@function.method.typescript"] = { fg = c.steel_blue }, -- Method calls
-		["@property.javascript"] = { fg = c.muted_orange }, -- Properties (.data, .name)
-		["@property.typescript"] = { fg = c.muted_orange }, -- Properties (.data, .name)
-		["@type.annotation.typescript"] = { fg = c.deep_blue }, -- : string, : number
-		["@type.parameter.typescript"] = { fg = c.deep_blue }, -- Generic types <T>
-		["@punctuation.bracket.typescript"] = { fg = c.steel_grey }, -- < > for generics
-		["@keyword.type.typescript"] = { fg = c.mauve }, -- interface, type
-		["@storageclass.typescript"] = { fg = c.lavender }, -- public, private, protected
-		["@keyword.function.javascript"] = { fg = c.lavender }, -- function, =>
-		["@keyword.function.typescript"] = { fg = c.lavender }, -- function, =>
-		["@constant.builtin.javascript"] = { fg = c.desaturated_gold }, -- undefined, null
-		["@constant.builtin.typescript"] = { fg = c.desaturated_gold }, -- undefined, null
-		["@string.template.javascript"] = { fg = c.sage_green }, -- Template literal strings
-		["@string.template.typescript"] = { fg = c.sage_green }, -- Template literal strings
-		["@punctuation.special.javascript"] = { fg = c.steel_grey }, -- ${} in template literals
-		["@punctuation.special.typescript"] = { fg = c.steel_grey }, -- ${} in template literals
-
-		-- JSX/TSX-specific enhancements
-		["@tag.builtin.tsx"] = { fg = c.coral }, -- Built-in HTML tags (div, span)
-		["@tag.builtin.jsx"] = { fg = c.coral }, -- Built-in HTML tags (div, span)
-		["@tag.component.tsx"] = { fg = c.class_teal }, -- Custom components (Button, Modal)
-		["@tag.component.jsx"] = { fg = c.class_teal }, -- Custom components (Button, Modal)
-		["@tag.attribute.tsx"] = { fg = c.muted_orange }, -- JSX attribute names (className, onClick)
-		["@tag.attribute.jsx"] = { fg = c.muted_orange }, -- JSX attribute names (className, onClick)
-		["@punctuation.bracket.tsx"] = { fg = c.steel_grey }, -- JSX brackets < >
-		["@punctuation.bracket.jsx"] = { fg = c.steel_grey }, -- JSX brackets < >
-		["@keyword.tsx"] = { fg = c.lavender }, -- JSX-specific keywords
-		["@keyword.jsx"] = { fg = c.lavender }, -- JSX-specific keywords
-		["@string.jsx"] = { fg = c.sage_green }, -- JSX string props
-		["@string.tsx"] = { fg = c.sage_green }, -- JSX string props
-		["@punctuation.delimiter.tsx"] = { fg = c.steel_grey }, -- JSX prop separators
-		["@punctuation.delimiter.jsx"] = { fg = c.steel_grey }, -- JSX prop separators
+		-- -- Python-specific enhancements
+		-- ["@variable.builtin.python"] = { fg = c.white, italic = true },
+		-- ["@variable.parameter.python"] = { fg = c.desaturated_gold },
+		-- ["@variable.member.python"] = { fg = c.steel_blue },
+		-- ["@function.method.python"] = { fg = c.steel_blue },
+		-- ["@function.builtin.python"] = { fg = c.sage_green },
+		-- ["@property.python"] = { fg = c.muted_orange },
+		-- ["@decorator.python"] = { fg = c.noir_purple, bold = true },
+		-- ["@type.class.python"] = { fg = c.class_teal, bold = true },
+		-- ["@constructor.python"] = { fg = c.class_teal },
+		-- ["@string.documentation.python"] = { fg = c.olive, italic = true },
+		-- ["@string.interpolation.python"] = { fg = c.desaturated_gold },
+		-- ["@punctuation.special.python"] = { fg = c.grey },
+		-- ["@constant.builtin.python"] = { fg = c.desaturated_gold, italic = true },
+		-- ["@type.builtin.python"] = { fg = c.class_teal },
+		-- ["@keyword.function.python"] = { fg = c.lavender },
+		-- ["@keyword.return.python"] = { fg = c.coral },
+		-- ["@keyword.conditional.python"] = { fg = c.olive },
+		-- ["@keyword.repeat.python"] = { fg = c.olive },
+		-- ["@keyword.exception.python"] = { fg = c.red },
+		-- ["@keyword.import.python"] = { fg = c.lavender },
+		--
+		-- -- TypeScript/JavaScript-specific enhancements
+		-- ["@variable.builtin.javascript"] = { fg = c.white, italic = true },
+		-- ["@variable.builtin.typescript"] = { fg = c.white, italic = true },
+		-- ["@variable.parameter.javascript"] = { fg = c.desaturated_gold },
+		-- ["@variable.parameter.typescript"] = { fg = c.desaturated_gold },
+		-- ["@variable.member.javascript"] = { fg = c.steel_blue },
+		-- ["@variable.member.typescript"] = { fg = c.steel_blue },
+		-- ["@type.class.javascript"] = { fg = c.class_teal, bold = true },
+		-- ["@type.class.typescript"] = { fg = c.class_teal, bold = true },
+		-- ["@constructor.javascript"] = { fg = c.class_teal },
+		-- ["@constructor.typescript"] = { fg = c.class_teal },
+		-- ["@function.method.javascript"] = { fg = c.steel_blue },
+		-- ["@function.method.typescript"] = { fg = c.steel_blue },
+		-- ["@function.builtin.javascript"] = { fg = c.sage_green },
+		-- ["@function.builtin.typescript"] = { fg = c.sage_green },
+		-- ["@property.javascript"] = { fg = c.muted_orange },
+		-- ["@property.typescript"] = { fg = c.muted_orange },
+		-- ["@type.annotation.typescript"] = { fg = c.class_teal },
+		-- ["@type.parameter.typescript"] = { fg = c.class_teal },
+		-- ["@punctuation.bracket.typescript"] = { fg = c.grey },
+		-- ["@keyword.type.typescript"] = { fg = c.class_teal },
+		-- ["@storageclass.typescript"] = { fg = c.lavender },
+		-- ["@keyword.function.javascript"] = { fg = c.lavender },
+		-- ["@keyword.function.typescript"] = { fg = c.lavender },
+		-- ["@keyword.return.javascript"] = { fg = c.coral },
+		-- ["@keyword.return.typescript"] = { fg = c.coral },
+		-- ["@constant.builtin.javascript"] = { fg = c.desaturated_gold },
+		-- ["@constant.builtin.typescript"] = { fg = c.desaturated_gold },
+		-- ["@string.template.javascript"] = { fg = c.sage_green },
+		-- ["@string.template.typescript"] = { fg = c.sage_green },
+		-- ["@punctuation.special.javascript"] = { fg = c.grey },
+		-- ["@punctuation.special.typescript"] = { fg = c.grey },
+		-- ["@module.javascript"] = { fg = c.steel_blue },
+		-- ["@module.typescript"] = { fg = c.steel_blue },
+		--
+		-- -- JSX/TSX-specific enhancements
+		-- ["@tag.builtin.tsx"] = { fg = c.coral },
+		-- ["@tag.builtin.jsx"] = { fg = c.coral },
+		-- ["@tag.component.tsx"] = { fg = c.class_teal },
+		-- ["@tag.component.jsx"] = { fg = c.class_teal },
+		-- ["@tag.attribute.tsx"] = { fg = c.muted_orange },
+		-- ["@tag.attribute.jsx"] = { fg = c.muted_orange },
+		-- ["@punctuation.bracket.tsx"] = { fg = c.grey },
+		-- ["@punctuation.bracket.jsx"] = { fg = c.grey },
+		-- ["@keyword.tsx"] = { fg = c.lavender },
+		-- ["@keyword.jsx"] = { fg = c.lavender },
+		-- ["@string.jsx"] = { fg = c.sage_green },
+		-- ["@string.tsx"] = { fg = c.sage_green },
+		-- ["@punctuation.delimiter.tsx"] = { fg = c.grey },
+		-- ["@punctuation.delimiter.jsx"] = { fg = c.grey },
+		--
+		-- -- Rust-specific enhancements
+		-- ["@variable.parameter.rust"] = { fg = c.desaturated_gold },
+		-- ["@variable.member.rust"] = { fg = c.steel_blue },
+		-- ["@function.builtin.rust"] = { fg = c.sage_green },
+		-- ["@keyword.return.rust"] = { fg = c.coral },
+		-- ["@type.class.rust"] = { fg = c.class_teal, bold = true },
+		-- ["@function.macro.rust"] = { fg = c.noir_purple },
+		-- ["@module.rust"] = { fg = c.steel_blue },
+		-- ["@namespace.rust"] = { fg = c.industrial_cyan },
+		--
+		-- -- Lua-specific enhancements
+		-- ["@variable.parameter.lua"] = { fg = c.desaturated_gold },
+		-- ["@variable.member.lua"] = { fg = c.steel_blue },
+		-- ["@function.builtin.lua"] = { fg = c.sage_green },
+		-- ["@keyword.return.lua"] = { fg = c.coral },
+		-- ["@constructor.lua"] = { fg = c.class_teal },
+		-- ["@module.lua"] = { fg = c.steel_blue },
 	}
 
 	return theme

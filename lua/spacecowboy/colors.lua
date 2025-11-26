@@ -1,65 +1,85 @@
 local M = {}
 
----@class Palette
-M.default = {
+local base = {
 	none = "NONE",
 	bg = "NONE",
-
-	-- Base greys and neutrals
-	grey = "#7d94a1", -- Brighter base grey
-	dark_grey = "#4a5458",
-	chrome = "#b0b9bd", -- For self/this/cls keywords (brighter)
-	sand = "#bfae9e",
-	white = "#f2e6d3", -- Brighter white for better contrast
-	black = "#181a1b",
-
-	-- Expanded noir palette - more color variety, less blue dominance
-	steel_blue = "#5ba3d4", -- Methods/functions (vibrant but readable)
-	deep_blue = "#6b95c7", -- Type annotations (bright blue)
-	industrial_cyan = "#4dd4d4", -- Constructors/modules (bright cyan)
-
-	-- More diverse colors to replace excessive blues
-	sage_green = "#7bc97b", -- String literals (vibrant green)
-	forest_green = "#6fb56f", -- Hints/success (forest green)
-	mint_green = "#85c985", -- Available for future use (mint)
-
-	muted_orange = "#e6a050", -- Properties/attributes (warm orange)
-	rust = "#d4845a", -- Errors (rust orange)
-	desaturated_gold = "#e6c478", -- Constants/literals (golden)
-	warm_yellow = "#f2d478", -- Numbers, booleans (golden yellow)
-
-	olive = "#9bc49b", -- Conditionals (sage olive)
-	noir_purple = "#a678a6", -- Decorators/special (soft purple)
-	lavender = "#b899d4", -- Keywords, statements (soft purple)
-	mauve = "#c7a5c7", -- Types, interfaces (muted mauve)
-
-	red = "#d47b7b", -- Exceptions (vibrant red)
-	coral = "#e89595", -- Tags, markup (soft coral)
-
-	steel_grey = "#9aa3b3", -- Operators/punctuation (lighter contrast)
-	warm_grey = "#b8aa9e", -- Comments, secondary text (warmer)
-
-	-- Class/Constructor specific color
-	class_teal = "#5ababa", -- Classes, constructors (distinct from keywords)
-
+	grey = "#6b7b8c",
+	dark_grey = "#1a2332",
+	sand = "#a8b5c4",
+	white = "#c5d0dc",
+	black = "#0a0e14",
 	diff = {
-		add_bg = "#203520",
-		delete_bg = "#352020",
-		change_bg = "#253040",
+		add_bg = "#0a2820",
+		delete_bg = "#2a1015",
+		change_bg = "#0a1a2a",
 	},
 	diagnostic = {
-		bg_error = "#2a1a1a",
-		bg_warn = "#2a261a",
-		bg_info = "#1a222a",
-		bg_hint = "#1a2a22",
+		bg_error = "#2a0a15",
+		bg_warn = "#2a1a0a",
+		bg_info = "#0a1520",
+		bg_hint = "#0a201a",
 	},
 }
 
+local variants = {
+	bright = {
+		steel_blue = "#00c5ff",
+		industrial_cyan = "#00d4d4",
+		class_teal = "#00e8d4",
+		sage_green = "#00ff41",
+		olive = "#5fbf5f",
+		muted_orange = "#ff9500",
+		desaturated_gold = "#ffd700",
+		warm_yellow = "#ffd700",
+		lavender = "#ff00ff",
+		noir_purple = "#a855f7",
+		red = "#ff0055",
+		rust = "#ff0055",
+		coral = "#ff4499",
+	},
+	neutral = {
+		steel_blue = "#00a0cc",
+		industrial_cyan = "#00aaaa",
+		class_teal = "#00bbaa",
+		sage_green = "#00cc34",
+		olive = "#4d994d",
+		muted_orange = "#cc7700",
+		desaturated_gold = "#ccac00",
+		warm_yellow = "#ccac00",
+		lavender = "#cc00cc",
+		noir_purple = "#8644c6",
+		red = "#cc0044",
+		rust = "#cc0044",
+		coral = "#cc3377",
+	},
+	muted = {
+		steel_blue = "#0080a3",
+		industrial_cyan = "#008888",
+		class_teal = "#009688",
+		sage_green = "#00a32a",
+		olive = "#3d7a3d",
+		muted_orange = "#a35f00",
+		desaturated_gold = "#a38a00",
+		warm_yellow = "#a38a00",
+		lavender = "#a300a3",
+		noir_purple = "#6b369e",
+		red = "#a30036",
+		rust = "#a30036",
+		coral = "#a3295f",
+	},
+}
+
+---@class Palette
+M.default = vim.tbl_extend("force", base, variants.bright)
+
+---@param variant? "bright"|"neutral"|"muted"
 ---@return ColorScheme
-function M.setup()
-	-- Color Palette
+function M.setup(variant)
+	variant = variant or "bright"
+	local palette = variants[variant] or variants.bright
+
 	---@class ColorScheme: Palette
-	local colors = vim.deepcopy(M.default)
+	local colors = vim.tbl_extend("force", vim.deepcopy(base), palette)
 	return colors
 end
 

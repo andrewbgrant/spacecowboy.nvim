@@ -3,6 +3,7 @@ local theme = require("spacecowboy.theme")
 local M = {}
 
 local defaults = {
+	variant = "bright",
 	on_colors = function() end,
 	on_highlights = function() end,
 }
@@ -25,7 +26,8 @@ function M.load()
 	vim.o.termguicolors = true
 	vim.g.colors_name = "spacecowboy"
 
-	load_syntax(theme.setup().highlights)
+	local variant = M.options and M.options.variant or "bright"
+	load_syntax(theme.setup(variant).highlights)
 end
 
 M.colorscheme = M.load

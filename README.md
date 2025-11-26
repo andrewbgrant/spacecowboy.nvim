@@ -1,12 +1,12 @@
 # spacecowboy.nvim
 
-A noir-inspired Neovim colorscheme for console cowboys. Born from the neon-lit streets of Blade Runner, the digital sprawl of Neuromancer, and the jazz-infused cosmos of Cowboy Bebop.
+A cyberpunk Neovim colorscheme for console cowboys jacking into the matrix. Inspired by the electric data streams of Neuromancer, the neon-soaked streets of Blade Runner, and the jazz-infused cosmos of Cowboy Bebop.
 
 ## Features
 
-- **Cyberpunk Aesthetic**: Carefully crafted palette balancing muted earth tones with vibrant accent colors
+- **Cyberspace Aesthetic**: Electric neon colors against dark terminal backgrounds - ice blues, matrix greens, hot pinks, and gold
 - **Semantic Highlighting**: Full support for TreeSitter and LSP semantic tokens
-- **Language-Optimized**: Specialized highlighting for Python, TypeScript, JavaScript, JSX/TSX
+- **Language-Optimized**: Specialized highlighting for Python, TypeScript, JavaScript, JSX/TSX, Rust, and Lua
 - **Plugin Integration**: Native support for popular plugins (LSP, diagnostics, flash.nvim, snacks.nvim, etc.)
 - **Terminal Transparency**: Designed to work beautifully with transparent backgrounds
 
@@ -28,30 +28,89 @@ A noir-inspired Neovim colorscheme for console cowboys. Born from the neon-lit s
 
 ## 🎨 Color Palette
 
-The spacecowboy palette draws inspiration from noir cinema and cyberpunk aesthetics:
+The spacecowboy palette draws inspiration from cyberspace and the digital matrix:
 
 ### Base Colors
 
-- **Sand** `#bfae9e` - Primary text
-- **White** `#f2e6d3` - Variables and emphasis
-- **Grey** `#7d94a1` - Secondary elements
-- **Warm Grey** `#b8aa9e` - Comments
+- **Sand** `#a8b5c4` - Primary text (chrome)
+- **White** `#c5d0dc` - Variables (bright chrome)
+- **Grey** `#6b7b8c` - Secondary elements
+- **Black** `#0a0e14` - Deep void backgrounds
 
-### Accent Colors
+### Cyberspace Colors
 
-- **Steel Blue** `#5ba3d4` - Functions and methods
-- **Sage Green** `#7bc97b` - Strings
-- **Muted Orange** `#e6a050` - Properties and labels
-- **Lavender** `#b899d4` - Keywords
-- **Class Teal** `#5ababa` - Classes and constructors
-- **Warm Yellow** `#f2d478` - Numbers and booleans
-- **Rust** `#d4845a` - Errors and warnings
-- **Red** `#d47b7b` - Exceptions
+- **Ice Blue** `#00c5ff` - Functions and methods (cold utilities)
+- **Matrix Green** `#00ff41` - Strings (raw data streams)
+- **Electric Cyan** `#00d4d4` - Imports (matrix architecture)
+- **Bright Teal** `#00e8d4` - Classes (data structures)
+- **Hot Pink** `#ff00ff` - Keywords (fundamental constructs)
+- **Gold** `#ffd700` - Constants (valuable data)
+- **Neon Orange** `#ff9500` - Properties
+- **Deep Purple** `#a855f7` - Decorators (ICE)
+- **Bright Red** `#ff0055` - Errors (intrusion/flatline)
+
+## 🎭 Variants
+
+spacecowboy comes with three intensity variants to match your preference:
+
+### Bright (Default)
+Full neon cyberspace - maximum vibrancy for that authentic matrix feel
+```lua
+require("spacecowboy").setup({
+  variant = "bright", -- Default, can be omitted
+})
+```
+
+### Neutral
+Balanced intensity - still vibrant but easier on the eyes for long coding sessions
+```lua
+require("spacecowboy").setup({
+  variant = "neutral", -- 20% reduced intensity
+})
+```
+
+### Muted
+Subdued and understated - retains the color scheme but with lower saturation
+```lua
+require("spacecowboy").setup({
+  variant = "muted", -- 40% reduced intensity
+})
+```
+
+## 🎭 Variants
+
+spacecowboy comes with three intensity variants to match your preference:
+
+### Bright (Default)
+Full neon cyberspace - maximum vibrancy for that authentic matrix feel
+```lua
+require("spacecowboy").setup({
+  variant = "bright", -- Default, can be omitted
+})
+```
+
+### Neutral
+Balanced intensity - still vibrant but easier on the eyes for long coding sessions
+```lua
+require("spacecowboy").setup({
+  variant = "neutral", -- 20% reduced intensity
+})
+```
+
+### Muted
+Subdued and understated - retains the color scheme but with lower saturation
+```lua
+require("spacecowboy").setup({
+  variant = "muted", -- 40% reduced intensity
+})
+```
 
 ## ⚙️ Configuration
 
 ```lua
 require("spacecowboy").setup({
+  variant = "bright", -- "bright" (default) | "neutral" | "muted"
+
   -- Customize colors
   on_colors = function(colors)
     -- Modify the color palette
