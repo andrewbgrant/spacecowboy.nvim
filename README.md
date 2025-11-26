@@ -2,6 +2,23 @@
 
 A cyberpunk Neovim colorscheme for console cowboys jacking into the matrix. Inspired by the electric data streams of Neuromancer, the neon-soaked streets of Blade Runner, and the jazz-infused cosmos of Cowboy Bebop.
 
+## Screenshots
+
+<details>
+<summary>Python</summary>
+<img src="assets/python.png" width="600">
+</details>
+
+<details>
+<summary>TypeScript</summary>
+<img src="assets/typescript.png" width="600">
+</details>
+
+<details>
+<summary>Rust</summary>
+<img src="assets/rust.png" width="600">
+</details>
+
 ## Features
 
 - **Cyberspace Aesthetic**: Electric neon colors against dark terminal backgrounds - ice blues, matrix greens, hot pinks, and gold
@@ -48,34 +65,6 @@ The spacecowboy palette draws inspiration from cyberspace and the digital matrix
 - **Neon Orange** `#ff9500` - Properties
 - **Deep Purple** `#a855f7` - Decorators (ICE)
 - **Bright Red** `#ff0055` - Errors (intrusion/flatline)
-
-## 🎭 Variants
-
-spacecowboy comes with three intensity variants to match your preference:
-
-### Bright (Default)
-Full neon cyberspace - maximum vibrancy for that authentic matrix feel
-```lua
-require("spacecowboy").setup({
-  variant = "bright", -- Default, can be omitted
-})
-```
-
-### Neutral
-Balanced intensity - still vibrant but easier on the eyes for long coding sessions
-```lua
-require("spacecowboy").setup({
-  variant = "neutral", -- 20% reduced intensity
-})
-```
-
-### Muted
-Subdued and understated - retains the color scheme but with lower saturation
-```lua
-require("spacecowboy").setup({
-  variant = "muted", -- 40% reduced intensity
-})
-```
 
 ## 🎭 Variants
 
